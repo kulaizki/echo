@@ -8,7 +8,7 @@
           href="https://github.com/kulaizki"
           target="_blank"
           rel="noopener noreferrer"
-          class="font-bold dark:text-violet-400 light:text-violet-600 hover:underline dark:hover:text-violet-300 light:hover:text-violet-700 transition ease-in-out duration-200"
+          class="font-bold dark:text-teal-400 light:text-teal-600 hover:underline dark:hover:text-teal-300 light:hover:text-teal-700 transition ease-in-out duration-200"
         >
           kulaizki
         </a>. All rights reserved.
@@ -34,7 +34,7 @@
           aria-label="Ko-fi"
           class="flex items-center space-x-2 group"
         >
-          <div class="bg-white dark:bg-white light:bg-white rounded-md p-1 flex items-center justify-center transition ease-in-out duration-300 group-hover:scale-110 group-hover:opacity-75">
+          <div class="bg-white rounded-md p-1 flex items-center justify-center transition ease-in-out duration-300 group-hover:scale-110 group-hover:opacity-75">
             <img
               src="https://cdn.simpleicons.org/kofi/FF5E5B"
               alt="Ko-fi"

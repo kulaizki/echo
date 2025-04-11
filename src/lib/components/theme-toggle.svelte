@@ -72,16 +72,16 @@
 	}
 
 	:global(.dark) .theme-toggle:hover {
-		background-color: rgba(255, 255, 255, 0.1);
+		background-color: rgba(45, 212, 191, 0.2); /* teal glow */
 	}
 
 	/* Light mode styles */
 	:global(.light) .theme-toggle {
-		color: #333;
+		color: #0d9488; /* teal-600 */
 	}
 
 	:global(.light) .theme-toggle:hover {
-		background-color: rgba(0, 0, 0, 0.05);
+		background-color: rgba(20, 184, 166, 0.1); /* teal hover */
 	}
 
 	.theme-toggle:hover {
