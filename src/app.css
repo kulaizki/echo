@@ -1,7 +1,40 @@
 @import 'tailwindcss';
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Apply transition to body background and text colors */
 body {
-  @apply bg-gray-950;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode theme */
+.dark body {
+  @apply bg-gray-950 text-white;
+}
+
+/* Light mode theme */
+.light body {
+  @apply bg-gray-100 text-gray-900;
+}
+
+/* Theme specific background color for the main gradient */
+.dark main.gradient-bg {
+  @apply bg-gradient-to-br from-gray-950 via-gray-800 to-gray-950;
+}
+
+.light main.gradient-bg {
+  @apply bg-gradient-to-br from-gray-50 via-gray-100 to-white;
+}
+
+/* Special color handling for text in light mode */
+.light .text-violet-400 {
+  @apply text-violet-600;
+}
+
+.light .text-gray-300 {
+  @apply text-gray-600;
 }
 
 /* * {

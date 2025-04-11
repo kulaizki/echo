@@ -35,10 +35,10 @@
 	});
 </script>
 
-<section class="flex-grow flex flex-col items-center justify-center p-8 text-white h-full">
+<section class="flex-grow flex flex-col items-center justify-center p-8 h-full">
 	<div class="max-w-7xl md:max-w-4xl text-center" transition:blurFly>
 		<h1 class="mb-4 text-4xl font-bold tracking-tight md:text-7xl">
-			Hi, i'm <span class="text-violet-400 [text-shadow:0_0_8px_rgba(202,139,244,0.5)]">Echo</span>.
+			Hi, i'm <span class="text-violet-400 dark:[text-shadow:0_0_8px_rgba(202,139,244,0.5)] light:[text-shadow:0_0_8px_rgba(126,34,206,0.3)]">Echo</span>.
 		</h1>
 		<p class="mb-6 text-lg text-gray-300 md:text-xl">your best buddy when it comes to mental wellness.</p>
 	</div>
