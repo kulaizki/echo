@@ -14,10 +14,23 @@
 	let advice: string | null = null;
 	let isLoading = false;
 
-	const followUpOptions: Record<string, string[]> = {
-		Happy: ['What made you feel this way?', 'Is there anything you want to celebrate?', 'How can you share this happiness?'],
-		Sad: ['Just recently?', 'How long has it been?', 'Would you like to talk about it?'],
-		Angry: ['What triggered this feeling?', 'Is this a recent feeling?', 'Do you need space or support?']
+	const followUpContextOptions: Record<string, string[]> = {
+		Happy: [
+			'It\'s because of something specific.',
+			'Just feeling generally good.',
+			'It\'s a lasting feeling.'
+		],
+		Sad: [
+			'It started very recently.',
+			'It\'s been going on for a while.',
+			'It feels quite intense.',
+			'I\'m not sure why I feel this way.'
+		],
+		Angry: [
+			'Something specific triggered it.',
+			'I feel overwhelmed by it.',
+			'It\'s more of a general frustration.'
+		]
 	};
 
 	function selectEmotion(emotion: string) {
@@ -27,8 +40,9 @@
 		advice = null; 
 	}
 
-	async function handleFollowUpSelect(question: string) {
-		followUpResponses = [...followUpResponses, question];
+	async function handleFollowUpSelect(selectedOption: string) {
+		// We only need the single selected context option
+		followUpResponses = [selectedOption]; 
 		
 		if (selectedEmotion) {
 			showFollowUp = false; 
@@ -42,7 +56,7 @@
 					},
 					body: JSON.stringify({ 
 						emotion: selectedEmotion,
-						followUpResponses: followUpResponses 
+						followUpResponses: followUpResponses // Send the single selected context
 					})
 				});
 
@@ -108,7 +122,7 @@
 		{:else if showFollowUp}
 			<div transition:slide={{ duration: 300 }}>
 				<FollowUpQuestions 
-					questions={followUpOptions[selectedEmotion] || []} 
+					options={followUpContextOptions[selectedEmotion] || []}
 					onSelect={handleFollowUpSelect} 
 				/>
 			</div>

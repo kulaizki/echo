@@ -3,4 +3,9 @@
   export let onClick: () => void;
 </script>
 
-<EmotionButton emotion="Happy" color="bg-yellow-400" {onClick} /> 
+<EmotionButton 
+  emotion="Happy" 
+  frontColor="bg-yellow-400" 
+  edgeColor="bg-yellow-600" 
+  {onClick} 
+/> 
