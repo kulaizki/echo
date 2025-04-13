@@ -49,16 +49,16 @@
 </script>
 
 <div
-	class="w-full flex flex-col rounded-lg md:dark:bg-gray-800 light:bg-gray-100 md:border dark:border-teal-500 light:border-teal-400 md:shadow-lg sm:px-6 sm:py-6"
+	class="w-full flex flex-col rounded-lg md:bg-gray-800 md:border border-teal-500 md:shadow-lg sm:px-6 sm:py-6"
 >
 	<div
-		class="sticky top-0 z-10 bg-white dark:bg-gray-900
-								 sm:static sm:p-0 sm:bg-transparent sm:dark:bg-transparent mb-4"
+		class="sticky top-0 z-10 bg-gray-900
+								 sm:static sm:p-0 sm:bg-transparent mb-4"
 	>
 		<div class="flex gap-2">
 			<button
 				on:click={onGoBack}
-				class="w-full sm:w-auto flex-1 p-3 sm:px-4 sm:py-2 rounded flex items-center justify-center gap-2 dark:bg-gray-600 light:bg-gray-400 text-white font-medium hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-gray-500 light:focus:ring-gray-500 focus:ring-opacity-75 cursor-pointer"
+				class="w-full sm:w-auto flex-1 p-3 sm:px-4 sm:py-2 rounded flex items-center justify-center gap-2 bg-gray-600 text-white font-medium hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-75 cursor-pointer"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +78,7 @@
 			</button>
 			<button
 				on:click={onStartOver}
-				class="w-full sm:w-auto flex-1 px-4 py-2 rounded flex items-center justify-center gap-2 dark:bg-teal-700 light:bg-red-500 text-white font-medium hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-red-400 light:focus:ring-red-500 focus:ring-opacity-75 cursor-pointer"
+				class="w-full sm:w-auto flex-1 px-4 py-2 rounded flex items-center justify-center gap-2 bg-teal-700 text-white font-medium hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 cursor-pointer"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +101,7 @@
 
 	<div
 		bind:this={chatContainer}
-		class="flex-grow overflow-y-auto pb-20 sm:pb-0 md:border dark:border-gray-600 light:border-gray-300 rounded md:p-3 space-y-3
+		class="flex-grow overflow-y-auto pb-20 sm:pb-0 md:border border-gray-600 rounded md:p-3 space-y-3
 						 h-[calc(100vh-180px)] sm:h-[450px]"
 	>
 		{#each $chatHistory as message, index (index)}
@@ -112,10 +112,10 @@
 		{#if isChatLoading}
 			<div class="flex justify-start w-full">
 				<span
-					class="inline-block px-3 py-2 rounded-lg dark:bg-gray-700 light:bg-gray-200 dark:text-gray-400 light:text-gray-500 animate-pulse"
+					class="inline-block px-3 py-2 rounded-lg bg-gray-700 text-gray-400 animate-pulse"
 				>
 					Echo is thinking...
-			</span>
+				</span>
 			</div>
 		{/if}
 	</div>

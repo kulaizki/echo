@@ -16,7 +16,7 @@
   let frontClasses = `relative block w-full h-full px-4 py-2 rounded-lg ${frontColor} ${textColor} text-lg font-semibold border-2 border-black/10 transform -translate-y-[4px] transition-transform duration-150 ease-in-out group-hover:-translate-y-[5px] group-active:-translate-y-[1px]`;
 
   let focusRingColor = frontColor.replace('bg-', 'focus:ring-').split('-')[0] + '-' + frontColor.split('-')[1]; // Derive ring color
-  let focusClasses = `focus:ring-2 ${focusRingColor} focus:ring-offset-2 dark:focus:ring-offset-gray-950 light:focus:ring-offset-gray-100`;
+  let focusClasses = `focus:ring-2 ${focusRingColor} focus:ring-offset-2 focus:ring-offset-gray-950`;
 
   $: finalPushableClasses = `${pushableClasses} ${hoverClasses} ${activeClasses} ${focusClasses} group`;
 </script>

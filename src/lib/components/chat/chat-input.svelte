@@ -38,8 +38,8 @@
 
 <div
 	class="flex flex-row items-end gap-2
-					 fixed bottom-0 left-0 right-0 p-3 bg-white dark:bg-gray-900 border-t dark:border-gray-700 light:border-gray-200 z-20
-					 sm:static sm:bottom-auto sm:left-auto sm:right-auto sm:w-full sm:p-1 sm:px-0 sm:bg-transparent sm:dark:bg-transparent sm:border-none sm:z-auto"
+					 fixed bottom-0 left-0 right-0 p-3 bg-gray-900 border-t border-gray-700 z-20
+					 sm:static sm:bottom-auto sm:left-auto sm:right-auto sm:w-full sm:p-1 sm:px-0 sm:bg-transparent sm:border-none sm:z-auto"
 >
 	<textarea
 		bind:this={textareaElement}
@@ -48,14 +48,14 @@
 		{placeholder}
 		on:input={adjustTextareaHeight}
 		on:keydown={handleKeydown}
-		class="flex-grow p-2 rounded-lg dark:bg-gray-700 light:bg-gray-200 dark:text-white light:text-gray-900 border dark:border-gray-600 light:border-gray-300 focus:outline-none focus:ring-2 dark:focus:ring-teal-400 light:focus:ring-teal-500 focus:border-transparent resize-none overflow-y-auto max-h-[150px]"
+		class="flex-grow p-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent resize-none overflow-y-auto max-h-[150px]"
 		style="height: auto;"
 	></textarea>
 	<button
 		aria-label="Send message"
 		on:click={handleSubmit}
 		disabled={!value.trim() || isLoading}
-		class="flex-shrink-0 h-10 px-3 py-2 flex items-center justify-center rounded-lg dark:bg-teal-600 light:bg-teal-500 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-teal-400 light:focus:ring-teal-500 focus:ring-opacity-75 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+		class="flex-shrink-0 h-10 px-3 py-2 flex items-center justify-center rounded-lg bg-teal-600 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-75 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
 	>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"

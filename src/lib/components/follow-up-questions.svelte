@@ -24,7 +24,7 @@
 	}
 </script>
 
-<div class="p-4 rounded-lg dark:bg-gray-800 light:bg-gray-100 border dark:border-teal-500 light:border-teal-400 shadow-lg">
+<div class="p-4 rounded-lg bg-gray-800 border border-teal-500 shadow-lg">
 	{#if selectedQuestionIndex === null}
 		<h2 class="text-lg font-semibold mb-3 text-center">I'd like to know more</h2>
 		<div class="space-y-2">
@@ -32,7 +32,7 @@
 				<button 
 					in:fly={{ y: 20, duration: 200, delay: i * 50 }}
 					on:click={() => selectQuestion(i)}
-					class="w-full text-left p-3 rounded dark:bg-gray-700 light:bg-gray-200 hover:dark:bg-gray-600 hover:light:bg-gray-300 transition-colors duration-150 dark:text-white light:text-gray-800 border dark:border-gray-600 light:border-gray-300 flex items-center justify-between"
+					class="w-full text-left p-3 rounded bg-gray-700 hover:bg-gray-600 transition-colors duration-150 text-white border border-gray-600 flex items-center justify-between"
 				>
 					<span>{question}</span>
 					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -46,7 +46,7 @@
 					<button 
 						in:fly={{ y: 20, duration: 200, delay: (questions.length + i) * 50 }}
 						on:click={() => selectQuestion(questions.length + i)}
-						class="w-full text-left p-3 rounded dark:bg-gray-700 light:bg-gray-200 hover:dark:bg-gray-600 hover:light:bg-gray-300 transition-colors duration-150 dark:text-white light:text-gray-800 border dark:border-gray-600 light:border-gray-300 flex items-center justify-between"
+						class="w-full text-left p-3 rounded bg-gray-700 hover:bg-gray-600 transition-colors duration-150 text-white border border-gray-600 flex items-center justify-between"
 					>
 						<span>{item.question}</span>
 						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -59,17 +59,17 @@
 			<div 
 				in:fly={{ y: 20, duration: 200, delay: (questions.length + questionWithAnswers.length) * 50 }}
 				class="mt-4">
-				<p class="text-sm mb-2 dark:text-gray-300 light:text-gray-600">Or share in your own words:</p>
+				<p class="text-sm mb-2 text-gray-300">Or share in your own words:</p>
 				<textarea
 					bind:value={customResponse}
-					class="w-full p-3 rounded dark:bg-gray-700 light:bg-gray-200 dark:text-white light:text-gray-800 border dark:border-gray-600 light:border-gray-300 focus:outline-none focus:ring-2 dark:focus:ring-teal-400 light:focus:ring-teal-500 focus:border-transparent"
+					class="w-full p-3 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent"
 					rows="3"
 					placeholder="Tell Echo how you're feeling..."
 				></textarea>
 				<button
 					on:click={() => onCustomSubmit()}
 					disabled={!customResponse.trim()}
-					class="mt-2 w-full px-4 py-2 rounded dark:bg-teal-600 light:bg-teal-500 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-teal-400 light:focus:ring-teal-500 focus:ring-opacity-75 disabled:opacity-50 disabled:cursor-not-allowed"
+					class="mt-2 w-full px-4 py-2 rounded bg-teal-600 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-75 disabled:opacity-50 disabled:cursor-not-allowed"
 				>
 					Submit
 				</button>
@@ -80,7 +80,7 @@
 			<div class="flex items-center mb-3">
 				<button 
 					on:click={() => selectedQuestionIndex = null}
-					class="mr-2 md:p-2 rounded hover:dark:bg-gray-700 hover:light:bg-gray-300"
+					class="mr-2 md:p-2 rounded hover:bg-gray-700"
 				>
 					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -91,7 +91,7 @@
 			
 			<textarea
 				bind:value={customResponse}
-				class="w-full p-3 rounded dark:bg-gray-700 light:bg-gray-200 dark:text-white light:text-gray-800 border dark:border-gray-600 light:border-gray-300 focus:outline-none focus:ring-2 dark:focus:ring-teal-400 light:focus:ring-teal-500 focus:border-transparent"
+				class="w-full p-3 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent"
 				rows="3"
 				placeholder="Your answer..."
 				on:keydown={(e) => {
@@ -107,7 +107,7 @@
 			<div class="flex justify-between">
 				<button
 					on:click={() => selectedQuestionIndex = null}
-					class="px-4 py-2 rounded dark:bg-gray-600 light:bg-gray-400 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out"
+					class="px-4 py-2 rounded bg-gray-600 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out"
 				>
 					Back
 				</button>
@@ -118,7 +118,7 @@
 						}
 					}}
 					disabled={!customResponse.trim()}
-					class="px-4 py-2 rounded dark:bg-teal-600 light:bg-teal-500 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-teal-400 light:focus:ring-teal-500 focus:ring-opacity-75 disabled:opacity-50 disabled:cursor-not-allowed"
+					class="px-4 py-2 rounded bg-teal-600 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-75 disabled:opacity-50 disabled:cursor-not-allowed"
 				>
 					Submit
 				</button>
@@ -130,7 +130,7 @@
 				<div class="flex items-center mb-3">
 					<button 
 						on:click={() => selectedQuestionIndex = null}
-						class="mr-2 p-1 rounded hover:dark:bg-gray-700 hover:light:bg-gray-300"
+						class="mr-2 p-1 rounded hover:bg-gray-700"
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -143,7 +143,7 @@
 					{#each questionWithAnswers[selectedQuestionIndex - questions.length].answers as answer}
 						<button 
 							on:click={() => selectAnswer(answer)}
-							class="w-full text-left p-3 rounded dark:bg-gray-700 light:bg-gray-200 hover:dark:bg-gray-600 hover:light:bg-gray-300 transition-colors duration-150 dark:text-white light:text-gray-800 border dark:border-gray-600 light:border-gray-300 flex items-center justify-between"
+							class="w-full text-left p-3 rounded bg-gray-700 hover:bg-gray-600 transition-colors duration-150 text-white border border-gray-600 flex items-center justify-between"
 						>
 							<span>{answer}</span>
 							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -155,7 +155,7 @@
 				
 				<button
 					on:click={() => selectedQuestionIndex = null}
-					class="w-full px-4 py-2 rounded dark:bg-gray-600 light:bg-gray-400 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out"
+					class="w-full px-4 py-2 rounded bg-gray-600 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out"
 				>
 					Back
 				</button>

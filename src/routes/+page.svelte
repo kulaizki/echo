@@ -131,11 +131,11 @@
 				<div class="text-center" transition:fade={{ duration: 300 }}>
 					<h1 class="mb-6 text-4xl font-bold tracking-tight md:text-7xl">
 						Hi, I'm <span
-							class="text-teal-400 dark:[text-shadow:0_0_8px_rgba(45,212,191,0.5)] light:[text-shadow:0_0_8px_rgba(20,184,166,0.3)]"
+							class="text-teal-400 [text-shadow:0_0_8px_rgba(45,212,191,0.5)]"
 							>Echo</span
 						>.
 					</h1>
-					<p class="mb-4 text-lg dark:text-gray-300 light:text-gray-600 md:text-xl">
+					<p class="mb-4 text-lg text-gray-300 md:text-xl">
 						How are you feeling today?
 					</p>
 				</div>
