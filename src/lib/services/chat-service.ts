@@ -15,7 +15,6 @@ export async function getChatReply(history: ChatMessage[]): Promise<string> {
 		return result.reply;
 	} catch (error) {
 		console.error('Error fetching chat reply:', error);
-		// Rethrow or return a specific error message
-		throw error; // Or return "Sorry, I couldn't get a response."
+		throw error; 
 	}
 } 

@@ -15,7 +15,6 @@ export async function POST({ request }) {
 
   } catch (error) {
     console.error('API Chat Route Error:', error);
-    // Consider more specific error messages if possible
     return json({ error: 'Failed to get chat response' }, { status: 500 }); 
   }
 } 
