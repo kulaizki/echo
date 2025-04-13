@@ -369,24 +369,25 @@
 						style="height: auto;"
 					></textarea>
 					<button
+						aria-label="Send message"
 						on:click={sendChatMessage}
 						disabled={!userMessage.trim() || isChatLoading}
-						class="self-end px-3 py-2 rounded-lg dark:bg-teal-600 light:bg-teal-500 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-teal-400 light:focus:ring-teal-500 focus:ring-opacity-75 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+						class="flex-shrink-0 h-10 px-3 py-2 flex items-center justify-center rounded-lg dark:bg-teal-600 light:bg-teal-500 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-teal-400 light:focus:ring-teal-500 focus:ring-opacity-75 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
 					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 20 20"
-							fill="currentColor"
-							class="w-5 h-5"
+						<svg 
+							xmlns="http://www.w3.org/2000/svg" 
+							width="20" 
+							height="20" 
+							viewBox="0 0 24 24" 
+							fill="none" 
+							stroke="currentColor" 
+							stroke-width="2" 
+							stroke-linecap="round" 
+							stroke-linejoin="round" 
+							class="lucide lucide-send w-5 h-5"
 						>
-							<path
-								d="M3.105 3.105a.5.5 0 0 1 .815-.093l1.978 1.978a.5.5 0 0 1-.434.707l-1.978-1.978a.5.5 0 0 1-.38-.614z"
-							/>
-							<path
-								fill-rule="evenodd"
-								d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.39-1.793 3.518.011.012 1.651 7.161c.215 1.002 1.155 1.709 2.171 1.709h9.015c1.016 0 1.956-.707 2.171-1.71l1.651-7.16.011-.011-1.793-3.519-4.753-.39-1.83-4.4zm-3.143 6.916l1.978 1.978a.5.5 0 0 1 .093.815l-1.978 1.978a.5.5 0 0 1-.908-.41l1.038-4.151a.5.5 0 0 1 .775-.22zm6.286 0l-1.038 4.151a.5.5 0 0 1-.908.41l-1.978-1.978a.5.5 0 0 1 .093-.815l1.978-1.978a.5.5 0 0 1 .775.22z"
-								clip-rule="evenodd"
-							/>
+							<path d="m22 2-7 20-4-9-9-4Z"/>
+							<path d="M22 2 11 13"/>
 						</svg>
 					</button>
 				</div>
