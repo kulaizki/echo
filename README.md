@@ -1,8 +1,8 @@
-# 👋 Echo - Your Reflective Companion
+# Echo
 
-Echo is a web app designed to be a supportive space for users to explore and reflect on their emotions through guided conversation.
+A web app designed to be a supportive space for users to explore and reflect on their emotions through guided conversation.
 
-![Echo Screenshot](placeholder.png) <!-- TODO: Add a relevant screenshot -->
+<img width="1439" alt="echo-min" src="https://github.com/user-attachments/assets/4a52338d-0216-40e7-94e4-e3fc36890a99" />
 
 ## 🧭 Overview
 
