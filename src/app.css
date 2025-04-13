@@ -49,6 +49,6 @@ body {
   --secondary-light: #3b82f6; /* blue-500 */
 }
 
-/* * {
-  color: rgb(202, 139, 244);
-} */
+* {
+  /* border: solid red 1px; */
+}

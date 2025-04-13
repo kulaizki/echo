@@ -206,7 +206,7 @@
 </script>
 
 <section class="flex-grow flex flex-col items-center justify-center p-8 h-full">
-	<div class="w-full max-w-2xl md:max-w-3xl mx-auto" transition:blurFly>
+	<div class="w-full sm:max-w-2xl md:max-w-3xl sm:mx-auto" transition:blurFly>
 		{#if showGreeting} 
 			<div class="text-center" transition:fade={{ duration: 300 }}>
 				<h1 class="mb-4 text-4xl font-bold tracking-tight md:text-7xl">
@@ -241,8 +241,8 @@
 		{/if}
 
 		{#if selectedEmotion && showChat}
-			<div class="mt-6 p-6 rounded-lg dark:bg-gray-800 light:bg-gray-100 border dark:border-teal-500 light:border-teal-400 shadow-lg w-full" transition:slide={{ duration: 300 }}>
-				<div bind:this={chatContainer} class="flex flex-col h-[300px] overflow-y-auto mb-4 border dark:border-gray-600 light:border-gray-300 rounded p-3 space-y-3">
+			<div class="mt-6 px-0 py-4 sm:px-6 sm:py-6 rounded-lg md:dark:bg-gray-800 light:bg-gray-100 md:border dark:border-teal-500 light:border-teal-400 md:shadow-lg w-full" transition:slide={{ duration: 300 }}>
+				<div bind:this={chatContainer} class="flex flex-col h-[300px] overflow-y-auto mb-4 md:border dark:border-gray-600 light:border-gray-300 rounded md:p-3 space-y-3">
 					{#each $chatHistory as message, index (index)}
 						{#if index !== 1}
 							<div class="{message.role === 'user' ? 'flex justify-end' : 'flex justify-start'}">
@@ -263,7 +263,7 @@
 						</div>
 					{/if}
 				</div>
-				<div class="flex flex-row items-center gap-2">
+				<div class="w-full flex flex-row items-center justify-between gap-2">
 					<input
 						type="text"
 						bind:value={userMessage}
