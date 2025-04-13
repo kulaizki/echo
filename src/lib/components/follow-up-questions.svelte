@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { fly } from 'svelte/transition';
 	export let questions: string[] = [];
 	export let onQuestionSelect: (question: string) => void = () => {};
 	export let customResponse: string = '';
@@ -27,8 +28,9 @@
 	{#if selectedQuestionIndex === null}
 		<h2 class="text-lg font-semibold mb-3 text-center">I'd like to know more</h2>
 		<div class="space-y-2">
-			{#each questions as question, i}
+			{#each questions as question, i (question)}
 				<button 
+					in:fly={{ y: 20, duration: 200, delay: i * 50 }}
 					on:click={() => selectQuestion(i)}
 					class="w-full text-left p-3 rounded dark:bg-gray-700 light:bg-gray-200 hover:dark:bg-gray-600 hover:light:bg-gray-300 transition-colors duration-150 dark:text-white light:text-gray-800 border dark:border-gray-600 light:border-gray-300 flex items-center justify-between"
 				>
@@ -40,8 +42,9 @@
 			{/each}
 			
 			{#if questionWithAnswers.length > 0}
-				{#each questionWithAnswers as item, i}
+				{#each questionWithAnswers as item, i (item.question)}
 					<button 
+						in:fly={{ y: 20, duration: 200, delay: (questions.length + i) * 50 }}
 						on:click={() => selectQuestion(questions.length + i)}
 						class="w-full text-left p-3 rounded dark:bg-gray-700 light:bg-gray-200 hover:dark:bg-gray-600 hover:light:bg-gray-300 transition-colors duration-150 dark:text-white light:text-gray-800 border dark:border-gray-600 light:border-gray-300 flex items-center justify-between"
 					>
@@ -53,7 +56,9 @@
 				{/each}
 			{/if}
 			
-			<div class="mt-4">
+			<div 
+				in:fly={{ y: 20, duration: 200, delay: (questions.length + questionWithAnswers.length) * 50 }}
+				class="mt-4">
 				<p class="text-sm mb-2 dark:text-gray-300 light:text-gray-600">Or share in your own words:</p>
 				<textarea
 					bind:value={customResponse}
