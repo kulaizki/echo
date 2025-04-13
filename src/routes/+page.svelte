@@ -40,6 +40,6 @@
 		<h1 class="mb-4 text-4xl font-bold tracking-tight md:text-7xl">
 			Hi, i'm <span class="text-teal-400 dark:[text-shadow:0_0_8px_rgba(45,212,191,0.5)] light:[text-shadow:0_0_8px_rgba(20,184,166,0.3)]">Echo</span>.
 		</h1>
-		<p class="mb-6 text-lg text-gray-300 md:text-xl">your best buddy when it comes to mental wellness.</p>
+		<p class="mb-6 text-lg text-gray-300 md:text-xl">How are you feeling today?</p>
 	</div>
 </section>
