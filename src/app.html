@@ -2,24 +2,25 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
+		<title>Echo</title>
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!-- Prevent flash of wrong theme -->
-		<script>
-			// Immediately apply the saved theme or fallback to system preference
-			(function() {
-				const savedTheme = localStorage.getItem('theme');
-				const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-				
-				if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
-					document.documentElement.classList.add('light');
-					document.documentElement.classList.remove('dark');
-				} else {
-					document.documentElement.classList.add('dark');
-					document.documentElement.classList.remove('light');
-				}
-			})();
-		</script>
+		
+		<meta name="description" content="Echo - Your personal AI companion for exploring emotions and thoughts." />
+		<meta name="keywords" content="AI, chatbot, emotions, mental wellness, self-reflection, therapy companion, SvelteKit" />
+		<meta name="author" content="kulaizki" />
+		
+		<meta property="og:title" content="Echo - AI Emotion Companion" />
+		<meta property="og:description" content="Explore your feelings and gain insights with Echo, your AI companion." />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="http://localhost:5173/" /> 
+		<meta property="og:image" content="%sveltekit.assets%/og-image.png" /> 
+		
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Echo - AI Emotion Companion" />
+		<meta name="twitter:description" content="Explore your feelings and gain insights with Echo, your AI companion." />
+		<meta name="twitter:image" content="%sveltekit.assets%/twitter-image.png" /> <!-- Create a twitter-image.png in static folder -->
+
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
