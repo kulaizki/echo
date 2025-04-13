@@ -256,7 +256,7 @@
 						{/if}
 					{/each}
 					{#if isChatLoading}
-						<div class="flex justify-start">
+						<div class="flex justify-start w-full">
 							<span class="inline-block px-3 py-2 rounded-lg dark:bg-gray-700 light:bg-gray-200 dark:text-gray-400 light:text-gray-500 animate-pulse">
 								Echo is thinking...
 							</span>
@@ -282,7 +282,7 @@
 				<div class="mt-4 flex flex-col sm:flex-row gap-2">
 					<button 
 						on:click={goBackToFollowUp} 
-						class="w-full sm:w-auto flex-1 px-4 py-2 rounded flex items-center justify-center gap-2 dark:bg-gray-600 light:bg-gray-400 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-gray-500 light:focus:ring-gray-500 focus:ring-opacity-75 cursor-pointer"
+						class="w-full sm:w-auto flex-1 px-4 py-2 rounded flex items-center justify-center gap-2 dark:bg-gray-600 light:bg-gray-400 text-white font-medium hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-gray-500 light:focus:ring-gray-500 focus:ring-opacity-75 cursor-pointer"
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -291,7 +291,7 @@
 					</button>
 					<button 
 						on:click={startOver}
-						class="w-full sm:w-auto flex-1 px-4 py-2 rounded flex items-center justify-center gap-2 dark:bg-teal-700 light:bg-red-500 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-red-400 light:focus:ring-red-500 focus:ring-opacity-75 cursor-pointer"
+						class="w-full sm:w-auto flex-1 px-4 py-2 rounded flex items-center justify-center gap-2 dark:bg-teal-700 light:bg-red-500 text-white font-medium hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-red-400 light:focus:ring-red-500 focus:ring-opacity-75 cursor-pointer"
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 							<path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
