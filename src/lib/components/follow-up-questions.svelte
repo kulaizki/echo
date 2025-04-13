@@ -72,12 +72,11 @@
 			</div>
 		</div>
 	{:else if selectedQuestionIndex !== null && selectedQuestionIndex < questions.length}
-		<!-- Show regular question with back button -->
 		<div class="space-y-3">
 			<div class="flex items-center mb-3">
 				<button 
 					on:click={() => selectedQuestionIndex = null}
-					class="mr-1 p-1 rounded hover:dark:bg-gray-700 hover:light:bg-gray-300"
+					class="mr-1 p-3 rounded hover:dark:bg-gray-700 hover:light:bg-gray-300"
 				>
 					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -93,7 +92,7 @@
 				placeholder="Your answer..."
 				on:keydown={(e) => {
 					if (e.key === 'Enter' && !e.shiftKey && customResponse.trim()) {
-						e.preventDefault(); // Prevent newline
+						e.preventDefault(); 
 						if (selectedQuestionIndex !== null) {
 							onCustomSubmit(questions[selectedQuestionIndex]);
 						}
@@ -122,7 +121,6 @@
 			</div>
 		</div>
 	{:else if selectedQuestionIndex !== null && selectedQuestionIndex >= questions.length}
-		<!-- Show question with predefined answer options -->
 		<div class="space-y-3">
 			{#if questionWithAnswers.length > 0}
 				<div class="flex items-center mb-3">
