@@ -238,7 +238,7 @@
 						>Echo</span
 					>.
 				</h1>
-				<p class="mb-8 text-lg dark:text-gray-300 light:text-gray-600 md:text-xl">
+				<p class="mb-4 text-lg dark:text-gray-300 light:text-gray-600 md:text-xl">
 					How are you feeling today?
 				</p>
 			</div>
