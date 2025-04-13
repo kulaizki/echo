@@ -52,8 +52,8 @@
 	class="w-full flex flex-col rounded-lg md:bg-gray-800 md:border border-teal-500 md:shadow-lg sm:px-6 sm:py-6"
 >
 	<div
-		class="sticky top-0 z-10 bg-gray-900
-								 sm:static sm:p-0 sm:bg-transparent mb-4"
+		class="sticky top-0 z-10
+								 sm:static sm:p-0 sm:bg-transparent pb-4 border-b border-gray-700 mb-4 md:mb-4 md:pb-0 md:border-hidden"
 	>
 		<div class="flex gap-2">
 			<button
@@ -105,15 +105,13 @@
 						 h-[calc(100vh-180px)] sm:h-[450px]"
 	>
 		{#each $chatHistory as message, index (index)}
-			{#if index !== 1} 
+			{#if index !== 1}
 				<ChatMessageDisplay {message} />
 			{/if}
 		{/each}
 		{#if isChatLoading}
 			<div class="flex justify-start w-full">
-				<span
-					class="inline-block px-3 py-2 rounded-lg bg-gray-700 text-gray-400 animate-pulse"
-				>
+				<span class="inline-block px-3 py-2 rounded-lg bg-gray-700 text-gray-400 animate-pulse">
 					Echo is thinking...
 				</span>
 			</div>
@@ -123,4 +121,4 @@
 	<div class="w-full mt-2">
 		<ChatInput bind:value={userMessage} isLoading={isChatLoading} on:submit={handleSendMessage} />
 	</div>
-</div> 
+</div>
