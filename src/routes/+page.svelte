@@ -233,7 +233,7 @@
 		{#if showGreeting}
 			<div class="text-center" transition:fade={{ duration: 300 }}>
 				<h1 class="mb-4 text-4xl font-bold tracking-tight md:text-7xl">
-					Hi, i'm <span
+					Hi, I'm <span
 						class="text-teal-400 dark:[text-shadow:0_0_8px_rgba(45,212,191,0.5)] light:[text-shadow:0_0_8px_rgba(20,184,166,0.3)]"
 						>Echo</span
 					>.
@@ -349,7 +349,7 @@
 				</div>
 
 				<div
-					class="w-full flex flex-row items-end gap-2
+					class="w-full flex flex-row mt-2 items-end gap-2
 									fixed bottom-0 left-0 right-0 p-3 bg-white dark:bg-gray-900 border-t dark:border-gray-700 light:border-gray-200 z-20
 									sm:static sm:bottom-auto sm:left-auto sm:right-auto sm:w-full sm:p-1 sm:px-0 sm:bg-transparent sm:dark:bg-transparent sm:border-none sm:z-auto"
 				>

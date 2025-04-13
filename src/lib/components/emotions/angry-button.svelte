@@ -4,7 +4,7 @@
 </script>
 
 <EmotionButton 
-  emotion="Angry" 
+  emotion="angry" 
   frontColor="bg-red-500" 
   edgeColor="bg-red-700" 
   {onClick} 

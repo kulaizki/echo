@@ -4,8 +4,8 @@
 </script>
 
 <EmotionButton 
-  emotion="Happy" 
-  frontColor="bg-yellow-400" 
+  emotion="happy" 
+  frontColor="bg-yellow-500" 
   edgeColor="bg-yellow-600" 
   {onClick} 
 /> 

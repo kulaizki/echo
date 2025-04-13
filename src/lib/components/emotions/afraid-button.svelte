@@ -5,7 +5,7 @@
 </script>
 
 <EmotionButton 
-  emotion="Afraid" 
+  emotion="afraid" 
   frontColor="bg-indigo-500" 
   edgeColor="bg-indigo-700" 
   {onClick} 

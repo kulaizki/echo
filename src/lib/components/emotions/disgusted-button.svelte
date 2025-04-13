@@ -5,7 +5,7 @@
 </script>
 
 <EmotionButton 
-  emotion="Disgusted" 
+  emotion="disgusted" 
   frontColor="bg-purple-500" 
   edgeColor="bg-purple-700" 
   {onClick} 
