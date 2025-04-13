@@ -1,16 +1,155 @@
 <script lang="ts">
-  export let options: string[];
-  export let onSelect: (option: string) => void;
+	// Export properties
+	export let questions: string[] = [];
+	export let onQuestionSelect: (question: string) => void = () => {};
+	export let customResponse: string = '';
+	export let onCustomSubmit: () => void = () => {};
+
+	// Questions can have predefined answer options
+	// Format: { question: string, answers: string[] }
+	export let questionWithAnswers: Array<{ question: string, answers: string[] }> = [];
+	
+	// Selected question for showing answer options
+	let selectedQuestionIndex: number | null = null;
+	
+	// Handle selecting a question to show answer options
+	function selectQuestion(index: number) {
+		selectedQuestionIndex = index;
+	}
+	
+	// Handle selecting an answer
+	function selectAnswer(answer: string) {
+		customResponse = answer;
+		onCustomSubmit();
+	}
 </script>
 
-<div class="mt-6 space-y-3">
-  <p class="text-lg dark:text-gray-300 light:text-gray-700 mb-4">I would love to hear more about your feelings. Please tell me more about it.</p>
-  {#each options as option}
-    <button 
-      on:click={() => onSelect(option)}
-      class="block w-full text-left px-4 py-3 rounded-lg dark:bg-gray-700 light:bg-gray-200 dark:hover:bg-gray-600 light:hover:bg-gray-300 dark:text-white light:text-gray-800 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-teal-400 light:focus:ring-teal-500 focus:ring-opacity-75 cursor-pointer"
-    >
-      {option}
-    </button>
-  {/each}
+<div class="p-4 rounded-lg dark:bg-gray-800 light:bg-gray-100 border dark:border-teal-500 light:border-teal-400 shadow-lg">
+	{#if selectedQuestionIndex === null}
+		<h2 class="text-lg font-semibold mb-3 text-center">I'd like to know more</h2>
+		<div class="space-y-2">
+			{#each questions as question, i}
+				<button 
+					on:click={() => selectQuestion(i)}
+					class="w-full text-left p-3 rounded dark:bg-gray-700 light:bg-gray-200 hover:dark:bg-gray-600 hover:light:bg-gray-300 transition-colors duration-150 dark:text-white light:text-gray-800 border dark:border-gray-600 light:border-gray-300 flex items-center justify-between"
+				>
+					<span>{question}</span>
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+					</svg>
+				</button>
+			{/each}
+			
+			{#if questionWithAnswers.length > 0}
+				{#each questionWithAnswers as item, i}
+					<button 
+						on:click={() => selectQuestion(questions.length + i)}
+						class="w-full text-left p-3 rounded dark:bg-gray-700 light:bg-gray-200 hover:dark:bg-gray-600 hover:light:bg-gray-300 transition-colors duration-150 dark:text-white light:text-gray-800 border dark:border-gray-600 light:border-gray-300 flex items-center justify-between"
+					>
+						<span>{item.question}</span>
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+						</svg>
+					</button>
+				{/each}
+			{/if}
+			
+			<div class="mt-4">
+				<p class="text-sm mb-2 dark:text-gray-300 light:text-gray-600">Or share in your own words:</p>
+				<textarea
+					bind:value={customResponse}
+					class="w-full p-3 rounded dark:bg-gray-700 light:bg-gray-200 dark:text-white light:text-gray-800 border dark:border-gray-600 light:border-gray-300 focus:outline-none focus:ring-2 dark:focus:ring-teal-400 light:focus:ring-teal-500 focus:border-transparent"
+					rows="3"
+					placeholder="Tell Echo how you're feeling..."
+				></textarea>
+				<button
+					on:click={onCustomSubmit}
+					disabled={!customResponse.trim()}
+					class="mt-2 w-full px-4 py-2 rounded dark:bg-teal-600 light:bg-teal-500 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-teal-400 light:focus:ring-teal-500 focus:ring-opacity-75 disabled:opacity-50 disabled:cursor-not-allowed"
+				>
+					Submit
+				</button>
+			</div>
+		</div>
+	{:else if selectedQuestionIndex !== null && selectedQuestionIndex < questions.length}
+		<!-- Show regular question with back button -->
+		<div class="space-y-3">
+			<div class="flex items-center mb-3">
+				<button 
+					on:click={() => selectedQuestionIndex = null}
+					class="mr-2 p-1 rounded hover:dark:bg-gray-700 hover:light:bg-gray-300"
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+					</svg>
+				</button>
+				<h2 class="text-lg font-semibold">{questions[selectedQuestionIndex]}</h2>
+			</div>
+			
+			<textarea
+				bind:value={customResponse}
+				class="w-full p-3 rounded dark:bg-gray-700 light:bg-gray-200 dark:text-white light:text-gray-800 border dark:border-gray-600 light:border-gray-300 focus:outline-none focus:ring-2 dark:focus:ring-teal-400 light:focus:ring-teal-500 focus:border-transparent"
+				rows="3"
+				placeholder="Your answer..."
+			></textarea>
+			
+			<div class="flex justify-between">
+				<button
+					on:click={() => selectedQuestionIndex = null}
+					class="px-4 py-2 rounded dark:bg-gray-600 light:bg-gray-400 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out"
+				>
+					Back
+				</button>
+				<button
+					on:click={() => {
+						if (selectedQuestionIndex !== null) {
+							onQuestionSelect(questions[selectedQuestionIndex]);
+						}
+					}}
+					disabled={!customResponse.trim()}
+					class="px-4 py-2 rounded dark:bg-teal-600 light:bg-teal-500 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-teal-400 light:focus:ring-teal-500 focus:ring-opacity-75 disabled:opacity-50 disabled:cursor-not-allowed"
+				>
+					Submit
+				</button>
+			</div>
+		</div>
+	{:else if selectedQuestionIndex !== null && selectedQuestionIndex >= questions.length}
+		<!-- Show question with predefined answer options -->
+		<div class="space-y-3">
+			{#if questionWithAnswers.length > 0}
+				<div class="flex items-center mb-3">
+					<button 
+						on:click={() => selectedQuestionIndex = null}
+						class="mr-2 p-1 rounded hover:dark:bg-gray-700 hover:light:bg-gray-300"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+						</svg>
+					</button>
+					<h2 class="text-lg font-semibold">{questionWithAnswers[selectedQuestionIndex - questions.length].question}</h2>
+				</div>
+				
+				<div class="space-y-2">
+					{#each questionWithAnswers[selectedQuestionIndex - questions.length].answers as answer}
+						<button 
+							on:click={() => selectAnswer(answer)}
+							class="w-full text-left p-3 rounded dark:bg-gray-700 light:bg-gray-200 hover:dark:bg-gray-600 hover:light:bg-gray-300 transition-colors duration-150 dark:text-white light:text-gray-800 border dark:border-gray-600 light:border-gray-300 flex items-center justify-between"
+						>
+							<span>{answer}</span>
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+							</svg>
+						</button>
+					{/each}
+				</div>
+				
+				<button
+					on:click={() => selectedQuestionIndex = null}
+					class="w-full px-4 py-2 rounded dark:bg-gray-600 light:bg-gray-400 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out"
+				>
+					Back
+				</button>
+			{/if}
+		</div>
+	{/if}
 </div> 
