@@ -3,10 +3,9 @@
 	export let questions: string[] = [];
 	export let onQuestionSelect: (question: string) => void = () => {};
 	export let customResponse: string = '';
-	export let onCustomSubmit: () => void = () => {};
+	export let onCustomSubmit: (question?: string) => void = () => {};
 
 	// Questions can have predefined answer options
-	// Format: { question: string, answers: string[] }
 	export let questionWithAnswers: Array<{ question: string, answers: string[] }> = [];
 	
 	// Selected question for showing answer options
@@ -15,6 +14,7 @@
 	// Handle selecting a question to show answer options
 	function selectQuestion(index: number) {
 		selectedQuestionIndex = index;
+		customResponse = ''; // Clear response when selecting a new question view
 	}
 	
 	// Handle selecting an answer
@@ -63,7 +63,7 @@
 					placeholder="Tell Echo how you're feeling..."
 				></textarea>
 				<button
-					on:click={onCustomSubmit}
+					on:click={() => onCustomSubmit()}
 					disabled={!customResponse.trim()}
 					class="mt-2 w-full px-4 py-2 rounded dark:bg-teal-600 light:bg-teal-500 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-teal-400 light:focus:ring-teal-500 focus:ring-opacity-75 disabled:opacity-50 disabled:cursor-not-allowed"
 				>
@@ -91,6 +91,14 @@
 				class="w-full p-3 rounded dark:bg-gray-700 light:bg-gray-200 dark:text-white light:text-gray-800 border dark:border-gray-600 light:border-gray-300 focus:outline-none focus:ring-2 dark:focus:ring-teal-400 light:focus:ring-teal-500 focus:border-transparent"
 				rows="3"
 				placeholder="Your answer..."
+				on:keydown={(e) => {
+					if (e.key === 'Enter' && !e.shiftKey && customResponse.trim()) {
+						e.preventDefault(); // Prevent newline
+						if (selectedQuestionIndex !== null) {
+							onCustomSubmit(questions[selectedQuestionIndex]);
+						}
+					}
+				}}
 			></textarea>
 			
 			<div class="flex justify-between">
@@ -103,7 +111,7 @@
 				<button
 					on:click={() => {
 						if (selectedQuestionIndex !== null) {
-							onQuestionSelect(questions[selectedQuestionIndex]);
+							onCustomSubmit(questions[selectedQuestionIndex]);
 						}
 					}}
 					disabled={!customResponse.trim()}

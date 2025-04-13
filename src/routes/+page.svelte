@@ -9,19 +9,21 @@
 	import SurprisedButton from '$lib/components/emotions/surprised-button.svelte';
 	import FollowUpQuestions from '$lib/components/follow-up-questions.svelte';
 	import { slide, fade } from 'svelte/transition';
+	import { writable } from 'svelte/store';
+	import { onDestroy } from 'svelte';
 
 	let show: boolean = false;
 	let selectedEmotion: string | null = null;
 	let showGreeting = true;
 	let showFollowUp = false;
-	let followUpResponses: string[] = [];
 	let showChat = false;
-	let chatHistory: { role: 'user' | 'model', text: string }[] = [];
+	let chatHistory = writable<{ role: 'user' | 'model', text: string }[]>([]);
 	let userMessage = '';
 	let isChatLoading = false;
-	let advice: string | null = null;
 	let isLoading = false;
 	let customFollowUpResponse = '';
+	let chatContainer: HTMLElement | null = null;
+	let unsubscribeChatHistory: (() => void) | null = null;
 
 	const followUpQuestionsMap: Record<string, string[]> = {
 		Happy: [
@@ -60,54 +62,52 @@
 		selectedEmotion = emotion;
 		showGreeting = false;
 		showFollowUp = true;
-		followUpResponses = []; 
-		advice = null;
 		showChat = false;
-		chatHistory = [];
-	}
-
-	function handleQuestionSelect(question: string) {
+		chatHistory.set([]);
 		customFollowUpResponse = '';
+	}
+
+	async function handleFollowUpSubmit(questionContext?: string) {
 		showFollowUp = false;
-		prepareForChatOrAdvice();
-	}
-
-	function handleCustomSubmit() {
-		showFollowUp = false;
-		prepareForChatOrAdvice();
-	}
-
-	function prepareForChatOrAdvice() {
-		advice = null;
-		isLoading = false;
-	}
-
-	async function startChat() {
 		showChat = true;
-		advice = null;
 		isChatLoading = true;
 		
-		let initialContext = `I'm feeling ${selectedEmotion}.`;
-		if (customFollowUpResponse.trim()) {
-			initialContext += ` I elaborated: "${customFollowUpResponse.trim()}".`;
-		} else {
-			initialContext += ` Help me understand this feeling.`;
-		}
+		let initialUserText = customFollowUpResponse.trim();
+		let firstMessageText = initialUserText;
+		let contextForModel = `I'm feeling ${selectedEmotion}.`;
 
-		chatHistory = [{ role: 'user', text: initialContext }];
+		if (questionContext) {
+			contextForModel += ` I was asked: "${questionContext}". My response: "${initialUserText}".`;
+		} else if (initialUserText) {
+			contextForModel += ` I elaborated: "${initialUserText}".`;
+		} else {
+			contextForModel += ` Help me understand this feeling.`;
+			firstMessageText = "(No specific details provided)";
+		}
 		
+		chatHistory.set([
+			{ role: 'user', text: firstMessageText },
+			{ role: 'user', text: contextForModel }
+		]);
+		customFollowUpResponse = '';
+
+		await fetchInitialChatResponse();
+	}
+
+	async function fetchInitialChatResponse() {
 		try {
+			const currentHistory = $chatHistory;
 			const response = await fetch('/api/chat', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ history: chatHistory })
+				body: JSON.stringify({ history: currentHistory })
 			});
 			if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 			const result = await response.json();
-			chatHistory = [...chatHistory, { role: 'model', text: result.reply }];
+			chatHistory.update(h => [...h, { role: 'model', text: result.reply }]);
 		} catch (error) {
 			console.error("Error starting chat:", error);
-			chatHistory = [...chatHistory, { role: 'model', text: "Sorry, I'm having trouble starting our chat right now." }];
+			chatHistory.update(h => [...h, { role: 'model', text: "Sorry, I'm having trouble starting our chat right now." }]);
 		} finally {
 			isChatLoading = false;
 		}
@@ -117,32 +117,50 @@
 		if (!userMessage.trim() || isChatLoading) return;
 
 		const newUserMessage = { role: 'user' as const, text: userMessage.trim() };
-		chatHistory = [...chatHistory, newUserMessage];
+		chatHistory.update(h => [...h, newUserMessage]);
+		const messageToSend = userMessage.trim();
 		userMessage = '';
 		isChatLoading = true;
 
 		try {
+			const historyForApi = $chatHistory.filter((msg, index) => index !== 1);
 			const response = await fetch('/api/chat', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ history: chatHistory })
+				body: JSON.stringify({ history: historyForApi })
 			});
 			if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 			const result = await response.json();
-			chatHistory = [...chatHistory, { role: 'model', text: result.reply }];
+			chatHistory.update(h => [...h, { role: 'model', text: result.reply }]);
 		} catch (error) {
 			console.error("Error sending chat message:", error);
-			chatHistory = [...chatHistory, { role: 'model', text: "Oops, something went wrong. Could you try saying that again?" }];
+			chatHistory.update(h => [...h, { role: 'model', text: "Oops, something went wrong. Could you try saying that again?" }]);
 		} finally {
 			isChatLoading = false;
 		}
 	}
 
-	function stopChat() {
+	function goBackToFollowUp() {
 		showChat = false;
+		showFollowUp = true;
+		chatHistory.set([]);
+	}
+
+	function startOver() {
 		selectedEmotion = null;
 		showGreeting = true;
-		chatHistory = [];
+		showFollowUp = false;
+		showChat = false;
+		chatHistory.set([]);
+		customFollowUpResponse = '';
+		userMessage = '';
+		isChatLoading = false;
+	}
+
+	function scrollToBottom() {
+		if (chatContainer) {
+			chatContainer.scrollTop = chatContainer.scrollHeight;
+		}
 	}
 
 	function blurFly(
@@ -173,6 +191,17 @@
 
 	onMount(() => {
 		show = true;
+		unsubscribeChatHistory = chatHistory.subscribe((value) => {
+			if (showChat && chatContainer) {
+				setTimeout(scrollToBottom, 0);
+			}
+		});
+	});
+
+	onDestroy(() => {
+		if (unsubscribeChatHistory) {
+			unsubscribeChatHistory();
+		}
 	});
 </script>
 
@@ -205,37 +234,26 @@
 			>
 				<FollowUpQuestions 
 					questions={followUpQuestionsMap[selectedEmotion] || []}
-					onQuestionSelect={handleQuestionSelect}
 					bind:customResponse={customFollowUpResponse}
-					onCustomSubmit={handleCustomSubmit}
+					onCustomSubmit={handleFollowUpSubmit}
 				/>
-			</div>
-		{/if}
-
-		{#if selectedEmotion && !showFollowUp && !showChat && !advice}
-			<div class="mt-6 text-center">
-				<button 
-					on:click={startChat}
-					class="px-6 py-3 rounded dark:bg-teal-600 light:bg-teal-500 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-teal-400 light:focus:ring-teal-500 focus:ring-opacity-75 cursor-pointer"
-				>
-					Talk with Echo
-				</button>
 			</div>
 		{/if}
 
 		{#if selectedEmotion && showChat}
 			<div class="mt-6 p-6 rounded-lg dark:bg-gray-800 light:bg-gray-100 border dark:border-teal-500 light:border-teal-400 shadow-lg w-full" transition:slide={{ duration: 300 }}>
-				<!-- Chat History Display -->
-				<div class="flex flex-col h-[300px] overflow-y-auto mb-4 border dark:border-gray-600 light:border-gray-300 rounded p-3 space-y-3">
-					{#each chatHistory as message, index (index)}
-						<div class="{message.role === 'user' ? 'flex justify-end' : 'flex justify-start'}">
-							<span 
-								class="inline-block max-w-[85%] px-3 py-2 rounded-lg 
-											 {message.role === 'user' ? 'dark:bg-teal-600 light:bg-teal-500 text-white' : 'dark:bg-gray-700 light:bg-gray-200 dark:text-gray-200 light:text-gray-800'}"
-							>
-								{message.text}
-							</span>
-						</div>
+				<div bind:this={chatContainer} class="flex flex-col h-[300px] overflow-y-auto mb-4 border dark:border-gray-600 light:border-gray-300 rounded p-3 space-y-3">
+					{#each $chatHistory as message, index (index)}
+						{#if index !== 1}
+							<div class="{message.role === 'user' ? 'flex justify-end' : 'flex justify-start'}">
+								<span 
+									class="inline-block max-w-[85%] px-3 py-2 rounded-lg 
+												 {message.role === 'user' ? 'dark:bg-teal-600 light:bg-teal-500 text-white' : 'dark:bg-gray-700 light:bg-gray-200 dark:text-gray-200 light:text-gray-800'}"
+								>
+									{message.text}
+								</span>
+							</div>
+						{/if}
 					{/each}
 					{#if isChatLoading}
 						<div class="flex justify-start">
@@ -245,7 +263,6 @@
 						</div>
 					{/if}
 				</div>
-				<!-- Chat Input -->
 				<div class="flex flex-row items-center gap-2">
 					<input
 						type="text"
@@ -262,39 +279,23 @@
 						Send
 					</button>
 				</div>
-				<!-- Stop Chatting Button -->
-				<button 
-					on:click={stopChat}
-					class="mt-4 w-full px-4 py-2 rounded flex items-center justify-center gap-2 dark:bg-red-600 light:bg-red-500 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-red-400 light:focus:ring-red-500 focus:ring-opacity-75 cursor-pointer"
-				>
-					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-					</svg>
-					End Conversation
-				</button>
-			</div>
-		{/if}
-
-		{#if isLoading}
-			<div class="mt-6 p-4 rounded-lg dark:bg-gray-700 light:bg-gray-200 animate-pulse text-center">
-				<p class="dark:text-gray-400 light:text-gray-600">Echo is thinking...</p>
-			</div>
-		{:else if advice}
-			<div 
-				class="mt-6 p-6 rounded-lg dark:bg-gray-800 light:bg-gray-100 border dark:border-teal-500 light:border-teal-400 shadow-lg w-full"
-				transition:slide={{ duration: 300 }}
-			>
-				<p class="dark:text-gray-200 light:text-gray-800 whitespace-pre-wrap">{advice}</p>
-				<div class="flex justify-center mt-6">
+				<div class="mt-4 flex flex-col sm:flex-row gap-2">
 					<button 
-						on:click={() => { 
-							selectedEmotion = null; 
-							advice = null; 
-							showFollowUp = false; 
-							showGreeting = true; 
-						}}
-						class="hover:cursor-pointer px-4 py-2 rounded dark:bg-teal-600 light:bg-teal-500 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-teal-400 light:focus:ring-teal-500 focus:ring-opacity-75"
+						on:click={goBackToFollowUp} 
+						class="w-full sm:w-auto flex-1 px-4 py-2 rounded flex items-center justify-center gap-2 dark:bg-gray-600 light:bg-gray-400 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-gray-500 light:focus:ring-gray-500 focus:ring-opacity-75 cursor-pointer"
 					>
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+						</svg>
+						Back to Questions
+					</button>
+					<button 
+						on:click={startOver}
+						class="w-full sm:w-auto flex-1 px-4 py-2 rounded flex items-center justify-center gap-2 dark:bg-red-600 light:bg-red-500 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-red-400 light:focus:ring-red-500 focus:ring-opacity-75 cursor-pointer"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+						</svg>
 						Start Over
 					</button>
 				</div>
