@@ -24,7 +24,6 @@ export async function getGeminiAdvice(emotion: string, followUpResponses: string
 		const result = await model.generateContent(prompt);
 		const response = result.response;
 		const text = response.text();
-		console.log("Gemini Response:", text);
 		return text;
 	} catch (error) {
 		console.error('Error calling Gemini API:', error);
@@ -44,14 +43,11 @@ export async function getGeminiChatResponse(history: { role: 'user' | 'model', t
 		return "I seem to have lost track of our conversation. Could you repeat that?";
 	}
 
-	console.log("Sending to Gemini:", { history: mappedHistory, lastUserMessage: lastUserMessage.parts[0].text });
-
 	try {
 		const chat = model.startChat({ history: mappedHistory });
 		const result = await chat.sendMessage(lastUserMessage.parts[0].text);
 		const response = result.response;
 		const text = response.text();
-		console.log("Gemini Chat Response:", text);
 		return text;
 	} catch (error) {
 		console.error('Error calling Gemini Chat API:', error);
