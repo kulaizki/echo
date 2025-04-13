@@ -129,7 +129,7 @@
 		>
 			{#if stage === 'greeting'}
 				<div class="text-center" transition:fade={{ duration: 300 }}>
-					<h1 class="mb-4 text-4xl font-bold tracking-tight md:text-7xl">
+					<h1 class="mb-6 text-4xl font-bold tracking-tight md:text-7xl">
 						Hi, I'm <span
 							class="text-teal-400 dark:[text-shadow:0_0_8px_rgba(45,212,191,0.5)] light:[text-shadow:0_0_8px_rgba(20,184,166,0.3)]"
 							>Echo</span
