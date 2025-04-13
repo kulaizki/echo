@@ -80,7 +80,7 @@
 			<div class="flex items-center mb-3">
 				<button 
 					on:click={() => selectedQuestionIndex = null}
-					class="mr-1 p-3 rounded hover:dark:bg-gray-700 hover:light:bg-gray-300"
+					class="mr-2 md:p-2 rounded hover:dark:bg-gray-700 hover:light:bg-gray-300"
 				>
 					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
