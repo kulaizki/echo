@@ -8,14 +8,12 @@ if (!GEMINI_API_KEY) {
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({
 	model: "gemini-1.5-flash",
-	// Optional: Configure safety settings if needed
 	safetySettings: [
 		{ category: HarmCategory.HARM_CATEGORY_HARASSMENT, threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE },
 		{ category: HarmCategory.HARM_CATEGORY_HATE_SPEECH, threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE },
 		{ category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT, threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE },
 		{ category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT, threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE },
 	],
-	// System instructions to guide the AI's persona
 	systemInstruction: "You are Echo, a compassionate and supportive emotional wellness assistant. Your goal is to listen empathetically, validate feelings, ask gentle, open-ended questions to encourage reflection (but avoid giving direct advice unless asked), and offer comfort. Keep your responses concise and caring. Do not sound like a robot; be warm and understanding.",
 });
 
@@ -34,15 +32,12 @@ export async function getGeminiAdvice(emotion: string, followUpResponses: string
 	}
 }
 
-// New function for handling chat conversations
 export async function getGeminiChatResponse(history: { role: 'user' | 'model', text: string }[]): Promise<string> {
-	// Map roles for the API (model = assistant for some APIs, but Gemini uses 'model')
 	const mappedHistory = history.map(msg => ({
 		role: msg.role,
 		parts: [{ text: msg.text }]
 	}));
 
-	// Remove the last part which is always the latest user message for the prompt
 	const lastUserMessage = mappedHistory.pop();
 	if (!lastUserMessage || lastUserMessage.role !== 'user') {
 		console.error("Chat history doesn't end with a user message.", history);
@@ -60,7 +55,6 @@ export async function getGeminiChatResponse(history: { role: 'user' | 'model', t
 		return text;
 	} catch (error) {
 		console.error('Error calling Gemini Chat API:', error);
-		// Handle potential safety blocks or other errors
 		if (error instanceof Error && error.message.includes('SAFETY')) { 
 			return "I'm unable to respond to that topic. Let's try talking about something else.";
 		}
