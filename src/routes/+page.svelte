@@ -5,10 +5,11 @@
 	import SadButton from '$lib/components/emotions/sad-button.svelte';
 	import AngryButton from '$lib/components/emotions/angry-button.svelte';
 	import FollowUpQuestions from '$lib/components/follow-up-questions.svelte';
-	import { slide } from 'svelte/transition';
+	import { slide, fade } from 'svelte/transition';
 
 	let show: boolean = false;
 	let selectedEmotion: string | null = null;
+	let showGreeting = true;
 	let showFollowUp = false;
 	let followUpResponses: string[] = [];
 	let advice: string | null = null;
@@ -35,6 +36,7 @@
 
 	function selectEmotion(emotion: string) {
 		selectedEmotion = emotion;
+		showGreeting = false;
 		showFollowUp = true;
 		followUpResponses = []; 
 		advice = null; 
@@ -108,21 +110,30 @@
 
 <section class="flex-grow flex flex-col items-center justify-center p-8 h-full">
 	<div class="max-w-2xl md:max-w-3xl text-center" transition:blurFly>
-		<h1 class="mb-4 text-4xl font-bold tracking-tight md:text-7xl">
-			Hi, i'm <span class="text-teal-400 dark:[text-shadow:0_0_8px_rgba(45,212,191,0.5)] light:[text-shadow:0_0_8px_rgba(20,184,166,0.3)]">Echo</span>.
-		</h1>
-		<p class="mb-8 text-lg dark:text-gray-300 light:text-gray-600 md:text-xl">How are you feeling today?</p>
+		{#if showGreeting} 
+			<div transition:fade={{ duration: 300 }}>
+				<h1 class="mb-4 text-4xl font-bold tracking-tight md:text-7xl">
+					Hi, i'm <span class="text-teal-400 dark:[text-shadow:0_0_8px_rgba(45,212,191,0.5)] light:[text-shadow:0_0_8px_rgba(20,184,166,0.3)]">Echo</span>.
+				</h1>
+				<p class="mb-8 text-lg dark:text-gray-300 light:text-gray-600 md:text-xl">How are you feeling today?</p>
+			</div>
+		{/if}
 
 		{#if !selectedEmotion}
-			<div class="flex justify-center gap-4 mb-8">
+			<div class="flex justify-center gap-4 mt-8 mb-8">
 				<HappyButton onClick={() => selectEmotion('Happy')} />
 				<SadButton onClick={() => selectEmotion('Sad')} />
 				<AngryButton onClick={() => selectEmotion('Angry')} />
 			</div>
-		{:else if showFollowUp}
-			<div transition:slide={{ duration: 300 }}>
+		{/if}
+
+		{#if selectedEmotion && showFollowUp}
+			<div 
+				class="w-full mx-auto mt-6"
+				transition:slide={{ duration: 300 }}
+			>
 				<FollowUpQuestions 
-					options={followUpContextOptions[selectedEmotion] || []}
+					options={followUpContextOptions[selectedEmotion] || []} 
 					onSelect={handleFollowUpSelect} 
 				/>
 			</div>
@@ -139,8 +150,13 @@
 			>
 				<p class="dark:text-gray-200 light:text-gray-800 whitespace-pre-wrap">{advice}</p>
 				<button 
-					on:click={() => { selectedEmotion = null; advice = null; showFollowUp = false; }}
-					class="mt-4 px-4 py-2 rounded dark:bg-teal-600 light:bg-teal-500 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-teal-400 light:focus:ring-teal-500 focus:ring-opacity-75"
+					on:click={() => { 
+						selectedEmotion = null; 
+						advice = null; 
+						showFollowUp = false; 
+						showGreeting = true;
+					}}
+					class="hover:cursor-pointer mt-6 px-4 py-2 rounded dark:bg-teal-600 light:bg-teal-500 text-white font-semibold hover:opacity-90 transition duration-150 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-teal-400 light:focus:ring-teal-500 focus:ring-opacity-75"
 				>
 					Start Over
 				</button>

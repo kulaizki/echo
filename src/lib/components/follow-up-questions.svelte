@@ -4,7 +4,7 @@
 </script>
 
 <div class="mt-6 space-y-3">
-  <p class="text-lg dark:text-gray-300 light:text-gray-700 mb-4">Help me understand a bit more:</p>
+  <p class="text-lg dark:text-gray-300 light:text-gray-700 mb-4">I would love to hear more about your feelings. Please tell me more about it.</p>
   {#each options as option}
     <button 
       on:click={() => onSelect(option)}
