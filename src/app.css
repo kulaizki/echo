@@ -12,47 +12,20 @@ html, body {
 
 body {
   transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Dark mode theme */
-.dark body {
   @apply bg-gray-950 text-white;
 }
 
-/* Light mode theme */
-.light body {
-  @apply bg-gray-100 text-gray-900;
-}
-
-.dark main.gradient-bg {
+main.gradient-bg {
   @apply bg-gradient-to-br from-gray-950 via-gray-800 to-gray-950;
 }
 
-.light main.gradient-bg {
-  @apply bg-gradient-to-br from-gray-50 via-gray-100 to-white;
-}
-
-.light .text-violet-400 {
-  @apply text-teal-500;
-}
-
-.dark .text-teal-400 {
+.text-teal-400 {
   text-shadow: 0 0 8px rgba(45, 212, 191, 0.5);
-}
-
-.light .text-teal-400 {
-  text-shadow: 0 0 8px rgba(20, 184, 166, 0.3);
-}
-
-.light .text-gray-300 {
-  @apply text-gray-600;
 }
 
 :root {
   --primary-dark: #2dd4bf; /* teal-400 */
-  --primary-light: #14b8a6; /* teal-500 */
   --secondary-dark: #93c5fd; /* blue-300 */
-  --secondary-light: #3b82f6; /* blue-500 */
 }
 
 * {
