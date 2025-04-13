@@ -1,5 +1,4 @@
 <script lang="ts">
-	// Export properties
 	export let questions: string[] = [];
 	export let onQuestionSelect: (question: string) => void = () => {};
 	export let customResponse: string = '';
@@ -14,7 +13,7 @@
 	// Handle selecting a question to show answer options
 	function selectQuestion(index: number) {
 		selectedQuestionIndex = index;
-		customResponse = ''; // Clear response when selecting a new question view
+		customResponse = ''; 
 	}
 	
 	// Handle selecting an answer
