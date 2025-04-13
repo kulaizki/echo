@@ -1,8 +1,8 @@
 # Echo
 
-A web app designed to be a supportive space for users to explore and reflect on their emotions through guided conversation.
+An AI-powered web app designed to be a supportive space for users to explore and reflect on their emotions through guided conversation.
 
-<img width="1439" alt="echo-min" src="https://github.com/user-attachments/assets/4a52338d-0216-40e7-94e4-e3fc36890a99" />
+<img width="1439" alt="echo-min" src="https://github.com/user-attachments/assets/b0f65ded-120f-4b83-8b70-1ce39e5d04e0" />
 
 ## 🧭 Overview
 
