@@ -6,16 +6,12 @@
 	
 	let { children } = $props();
 	
-	// Add script to prevent flash of incorrect theme
 	onMount(() => {
-		// The actual theme handling is in the ThemeToggle component
 	});
 </script>
 
 <svelte:head>
-	<!-- Preload theme script to avoid FOUC -->
 	<script>
-		// Check for saved theme and apply it immediately
 		const savedTheme = localStorage.getItem('theme');
 		const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 		
@@ -30,7 +26,6 @@
 </svelte:head>
 
 <div class="flex flex-col min-h-screen relative">
-	<!-- Theme toggle in upper right corner -->
 	<div class="absolute top-4 right-4 z-10">
 		<ThemeToggle />
 	</div>

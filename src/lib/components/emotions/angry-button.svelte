@@ -1,4 +1,3 @@
-<!-- src/lib/components/emotions/angry-button.svelte -->
 <script lang="ts">
   import EmotionButton from './emotion-button.svelte';
   export let onClick: () => void;

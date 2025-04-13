@@ -1,4 +1,3 @@
-<!-- src/lib/components/follow-up-questions.svelte -->
 <script lang="ts">
   export let questions: string[];
   export let onSelect: (question: string) => void;
