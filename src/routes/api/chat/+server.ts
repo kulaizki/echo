@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { getGeminiChatResponse } from '$lib/services/gemini-api'; // We'll create this function next
+import { getGeminiChatResponse } from '$lib/services/gemini-api';
 
 export async function POST({ request }) {
   try {

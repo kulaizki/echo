@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 	export let questions: string[] = [];
-	export let onQuestionSelect: (question: string) => void = () => {};
 	export let customResponse: string = '';
 	export let onCustomSubmit: (question?: string) => void = () => {};
 
@@ -81,6 +80,7 @@
 				<button 
 					on:click={() => selectedQuestionIndex = null}
 					class="mr-2 md:p-2 rounded hover:bg-gray-700"
+					aria-label="Back"
 				>
 					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -131,6 +131,7 @@
 					<button 
 						on:click={() => selectedQuestionIndex = null}
 						class="mr-2 p-1 rounded hover:bg-gray-700"
+						aria-label="Back"
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />

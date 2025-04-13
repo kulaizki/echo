@@ -133,7 +133,7 @@
 						Hi, I'm <span
 							class="text-teal-400 [text-shadow:0_0_8px_rgba(45,212,191,0.5)]"
 							>Echo</span
-						>.
+						>
 					</h1>
 					<p class="mb-4 text-lg text-gray-300 md:text-xl">
 						How are you feeling today?
