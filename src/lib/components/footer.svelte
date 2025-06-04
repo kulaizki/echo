@@ -50,7 +50,13 @@
           Fitzsixto
         </a>. All rights reserved.
       </p>
-      <div class="flex space-x-4">
+      <div class="flex space-x-4 items-center">
+        <a
+          href="/legal/privacy-policy"
+          class="text-xs sm:text-sm text-gray-400 hover:text-teal-400 transition-colors duration-200"
+        >
+          Privacy Policy
+        </a>
         <a
           href="https://github.com/kulaizki/echo/"
           target="_blank"

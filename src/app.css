@@ -19,10 +19,6 @@ main.gradient-bg {
   @apply bg-gradient-to-br from-gray-950 via-gray-800 to-gray-950;
 }
 
-.text-teal-400 {
-  text-shadow: 0 0 8px rgba(45, 212, 191, 0.5);
-}
-
 :root {
   --primary-dark: #2dd4bf; /* teal-400 */
   --secondary-dark: #93c5fd; /* blue-300 */
